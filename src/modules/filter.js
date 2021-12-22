@@ -1,6 +1,6 @@
-import getData from "./src/modules/getData";
-import renderGoods from "./src/modules/renderCart";
-import { priceFilters, hotSaleFilters } from "./src/modules/filters";
+import getData from "./getData";
+import renderGoods from "./renderCart";
+import { priceFilters, hotSaleFilters } from "./filters";
 
 const filter = () => {
   const minInput = document.getElementById('min');
