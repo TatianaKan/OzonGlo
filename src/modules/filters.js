@@ -24,4 +24,14 @@ export const priceFilters = (goods, min, max) => {
     }
   })
 }
+  export const hotSaleFilters = (goods, value) => {
+    return goods.filter((goodsItem) => {
+      if (value) {
+        return goodsItem.sale === true
+      } else {
+        return goodsItem
+      }
+    })
+  }
+
 
