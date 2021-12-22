@@ -1,4 +1,5 @@
 import renderCart from "./renderCart";
+import postData from "./postData";
 
 const cart = () => {
   const cartBtn = document.getElementById('cart');
@@ -6,21 +7,22 @@ const cart = () => {
   const cartModal = document.querySelector('.cart');
 
   const closeModal = cartModal.querySelector('.cart-close');
-  
+
   const cartTotal = cartModal.querySelector('.cart-total > span');
+  const cartSend = cartModal.querySelector('.cart-confirm');
 
   const goodsWrapper = document.querySelector('.goods');
   const cartWrapper = document.querySelector('.cart-wrapper')
 
   const openCart = () => {
     const cart = localStorage.getItem('cart') ?
-        JSON.parse(localStorage.getItem('cart')) : [];
+      JSON.parse(localStorage.getItem('cart')) : [];
 
     cartModal.style.display = 'flex';
 
     renderCart(cart)
     cartTotal.textContent = cart.reduce((sum, goodItem) => {
-return sum += goodItem.price
+      return sum += goodItem.price
     }, 0)
   }
   const closeCart = () => {
@@ -55,15 +57,15 @@ return sum += goodItem.price
     }
   })
 
-  cartWrapper.addEventListener('click', (event)=> {
+  cartWrapper.addEventListener('click', (event) => {
     if (event.target.classList.contains('btn-primary')) {
       const cart = localStorage.getItem('cart') ?
-      JSON.parse(localStorage.getItem('cart')) : [];
+        JSON.parse(localStorage.getItem('cart')) : [];
 
       const card = event.target.closest('.card');
       const key = card.dataset.key;
 
-      const index = cart.findIndex ((item)=> {
+      const index = cart.findIndex((item) => {
         return item.id === +key
       })
 
@@ -72,12 +74,26 @@ return sum += goodItem.price
       localStorage.setItem('cart', JSON.stringify(cart));
 
       renderCart(cart);
-    cartTotal.textContent = cart.reduce((sum, goodItem) => {
-return sum += goodItem.price
-    }, 0);
-  
+      cartTotal.textContent = cart.reduce((sum, goodItem) => {
+        return sum += goodItem.price
+      }, 0);
+
     }
   })
+
+
+  cartSend.addEventListener('click', ()=> {
+    const cart = localStorage.getItem('cart') ?
+        JSON.parse(localStorage.getItem('cart')) : [];
+
+        postData(cart).then(()=> {
+          localStorage.removeItem('cart');
+          renderCart([])
+          cartTotal.textContent = 0;
+        })
+  })
+
+
 }
 
 export default cart;
