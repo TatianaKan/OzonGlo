@@ -10,13 +10,13 @@ const filter = () => {
 
   minInput.addEventListener('input', () => {
     getData().then((data) => {
-      renderGoods(priceFilters(data, minInput.value, maxInput.value));
+      renderGoods(priceFilters(hotSaleFilters(data, checkBoxInput.checked), minInput.value, maxInput.value));
     })
   })
 
   maxInput.addEventListener('input', () => {
     getData().then((data) => {
-      renderGoods(priceFilters(data, minInput.value, maxInput.value));
+      renderGoods(priceFilters(hotSaleFilters(data, checkBoxInput.checked), minInput.value, maxInput.value));
     })
   })
 
@@ -28,7 +28,7 @@ const filter = () => {
       checkBoxSpan.classList.remove('checked')
     }
     getData().then((data) => {
-      renderGoods(hotSaleFilters(data, checkBoxInput.checked));
+      renderGoods(priceFilters(hotSaleFilters(data, checkBoxInput.checked), minInput.value, maxInput.value));
     })
   })
 
