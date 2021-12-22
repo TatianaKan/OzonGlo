@@ -1,5 +1,5 @@
 import getData from "./src/modules/getData";
-import renderGoods from "./src/modules/renderGoods";
+import renderGoods from "./src/modules/renderCart";
 import { priceFilters, hotSaleFilters } from "./src/modules/filters";
 
 const filter = () => {
